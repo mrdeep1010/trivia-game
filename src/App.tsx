@@ -64,6 +64,7 @@ const App: React.FC = () => {
           />
         ) : questions && (
           <QuestionCard
+            questionNo={correctQuestions + 1}
             question={questions[currentQuestionIndex]?.question || ''}
             options={[...questions[currentQuestionIndex]?.incorrect_answers, questions[currentQuestionIndex].correct_answer] || []}
             correctAnswer={questions[currentQuestionIndex]?.correct_answer || ''}

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Card, CardContent, Container, FormControl, FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material';
 
 interface QuestionCardProps {
+    questionNo: number;
     question: string;
     options: string[];
     correctAnswer: string;
@@ -10,6 +11,7 @@ interface QuestionCardProps {
 }
 
 const QuestionCard: React.FC<QuestionCardProps> = ({
+    questionNo,
     question,
     options,
     correctAnswer,
@@ -67,9 +69,12 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
                 justifyContent: 'center',
                 height: '100vh',
             }}>
-            <Card variant='elevation' sx={{ width: '100%' }}>
+            <Card variant='elevation'className='w-100'>
                 <CardContent>
-                    <Typography variant="h5" dangerouslySetInnerHTML={{ __html: question }} />
+                    <div className='d-flex'>
+                        <Typography variant='h5'>{questionNo}.</Typography>
+                        <Typography variant="h5" className='ps-2' dangerouslySetInnerHTML={{ __html: question }} />
+                    </div>
                     <FormControl component="fieldset">
                         <RadioGroup
                             value={convertToHtml(selectedOption)}
@@ -86,17 +91,17 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
                         </RadioGroup>
                     </FormControl>
                     <div>
-                        {selectedOption === null && error && <div style={{ color: 'red', padding: 10 }}>{error}</div>}
+                        {selectedOption === null && error && <div className='text-danger pb-2'>{error}</div>}
                         {(isCorrect === null) && (<Button variant="contained" onClick={handleSubmit}>
                             Submit
                         </Button>)} </div>
                     {isCorrect !== null && (
                         <div>
                             {isCorrect ? (
-                                <Typography variant="h6" style={{ color: 'green' }}>Correct!</Typography>
+                                <Typography variant="h6" className='text-success'>Correct!</Typography>
                             ) : (
                                 <div>
-                                    <Typography variant="h6" style={{ color: 'red' }}>Wrong!</Typography>
+                                    <Typography variant="h6" className='text-danger'>Wrong!</Typography>
                                     <Typography variant="body1">
                                         <b>Correct Answer: </b>{correctAnswer}
                                     </Typography>
